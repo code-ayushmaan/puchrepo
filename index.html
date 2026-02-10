@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Will you be my Valentine Puchu?</title>
+
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        background: linear-gradient(#f8cdda, #fbc2eb);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Segoe UI", sans-serif;
+        overflow: hidden;
+    }
+
+    .card {
+        background: #fff;
+        width: 360px;
+        padding: 30px;
+        border-radius: 20px;
+        text-align: center;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        position: relative;
+    }
+
+    .emoji {
+        font-size: 60px;
+        margin-bottom: 10px;
+    }
+
+    h1 {
+        font-size: 22px;
+        font-weight: 700;
+        margin-bottom: 25px;
+    }
+
+    .buttons {
+        position: relative;
+        height: 70px;
+    }
+
+    button {
+        border: none;
+        padding: 10px 24px;
+        border-radius: 999px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.2s;
+        position: absolute;
+    }
+
+    #yes {
+        background: #ff4d6d;
+        color: white;
+        left: 80px;
+    }
+
+    #no {
+        background: #f1f1f1;
+        left: 180px;
+    }
+
+    .hint {
+        margin-top: 15px;
+        font-size: 13px;
+        color: #777;
+    }
+
+    /* After YES */
+    .celebrate {
+        display: none;
+    }
+
+    .celebrate h2 {
+        font-size: 26px;
+        margin-bottom: 10px;
+    }
+
+    .celebrate img {
+        width: 100%;
+        border-radius: 12px;
+        margin-top: 10px;
+    }
+
+    /* Confetti */
+    .confetti {
+        position: fixed;
+        width: 10px;
+        height: 10px;
+        background: red;
+        top: -10px;
+        animation: fall linear forwards;
+    }
+
+    @keyframes fall {
+        to {
+            transform: translateY(110vh) rotate(360deg);
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="card" id="card">
+    <div class="initial">
+        <div class="emoji">❤️❤️</div>
+        <h1>Tanya will you be my valentine?</h1>
+
+        <div class="buttons">
+            <button id="yes">Yes</button>
+            <button id="no">No</button>
+        </div>
+
+        <div class="hint">Try no for a change 😉</div>
+    </div>
+
+    <div class="celebrate" id="celebrate">
+        <div class="emoji">❤️</div>
+        <h2>YAY! 🎉</h2>
+
+        <!-- Replace this GIF with ANY gif/image you want -->
+        <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExaWNlZmhqODV1dGswajdlbmU1azg3cGpicWx4eDZydWpkMDAxc2o0bSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/tTdAJwKqH1KGQ/giphy.gif" alt="celebration">
+    </div>
+</div>
+
+<script>
+    const noBtn = document.getElementById("no");
+    const yesBtn = document.getElementById("yes");
+    const initial = document.querySelector(".initial");
+    const celebrate = document.getElementById("celebrate");
+
+    // NO button runs away
+    noBtn.addEventListener("mouseover", () => {
+        const x = Math.random() * 200 - 100;
+        const y = Math.random() * 60 - 30;
+        noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    });
+
+    // YES click
+    yesBtn.addEventListener("click", () => {
+        initial.style.display = "none";
+        celebrate.style.display = "block";
+        startConfetti();
+    });
+
+    // Confetti function
+    function startConfetti() {
+        for (let i = 0; i < 80; i++) {
+            const confetti = document.createElement("div");
+            confetti.classList.add("confetti");
+            confetti.style.left = Math.random() * window.innerWidth + "px";
+            confetti.style.background =
+                `hsl(${Math.random() * 360}, 100%, 70%)`;
+            confetti.style.animationDuration =
+                Math.random() * 3 + 2 + "s";
+            document.body.appendChild(confetti);
+
+            setTimeout(() => confetti.remove(), 5000);
+        }
+    }
+</script>
+
+</body>
+</html>
